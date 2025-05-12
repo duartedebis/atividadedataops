@@ -28,7 +28,7 @@ jobs:
         key: ${{ secrets.SERVER_SSH_KEY }}
         port: 22
         script: |
-          cd /home/${{ secrets.SERVER_USER }}/dataops-github-actions2
+          cd /home/${{ secrets.SERVER_USER }}/atividadedataops
           git pull origin main
           docker-compose down || true
           docker-compose up -d --build
