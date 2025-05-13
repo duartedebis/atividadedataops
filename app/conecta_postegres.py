@@ -5,7 +5,7 @@ from flask_restx import Api, Resource
 
 
 app = Flask(__name__)
-api = Api(app, version='1.0', title='API Flask ',
+api = Api(app, version='1.0', title='API Flask',
             description='API para conectar e consultar dados no PostgreSQL',
             doc='/swagger')
 
@@ -25,7 +25,7 @@ oper_model = ns.model('OperModel', {
     'num2': fields.Float(required=True, description='Segundo número'),
 })
 
-@ns.route('/soma')
+@ns.route('/soma') #  Recebe dois números e retorna a soma
 class Soma(Resource):
     @ns.expect(oper_model)
     @ns.response(200, 'Sucesso')
@@ -37,7 +37,7 @@ class Soma(Resource):
         resultado = data['num1'] + data['num2']
         return {'resultado': resultado}, 200
 
-@ns.route('/multiplicacao')
+@ns.route('/multiplicacao') # Recebe dois números e retorna o produto
 class Multiplicacao(Resource):
     @ns.expect(oper_model)
     @ns.response(200, 'Sucesso')
