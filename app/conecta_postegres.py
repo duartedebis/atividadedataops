@@ -9,7 +9,7 @@ api = Api(app, version='1.0', title='API Flask',
             description='API para conectar e consultar dados no PostgreSQL',
             doc='/swagger')
 
-ns = api.namespace('Operação Matemática', description='Operações de conexão com PostgreSQL')
+ns = api.namespace('Atividade III', description='Operações de conexão com PostgreSQL')
 
 def get_connection():
     conn = psycopg2.connect(
