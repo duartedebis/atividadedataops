@@ -37,7 +37,7 @@ class Soma(Resource):
         resultado = data['num1'] + data['num2']
         return {'resultado': resultado}, 200
 
-@ns.route('/multiplicacao') # Recebe dois números e retorna o produto
+@ns.route('/multiplicacao') # Recebe dois números e retorna o produto 2
 class Multiplicacao(Resource):
     @ns.expect(oper_model)
     @ns.response(200, 'Sucesso')
