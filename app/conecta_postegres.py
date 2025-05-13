@@ -20,33 +20,31 @@ def get_connection():
         )
     return conn
 
-@ns.route('/')
-class AlunosList(Resource):
-    def get(self):
-        conn = get_connection()
-        cursor = conn.cursor()
-        cursor.execute("SELECT * FROM alunos")
-        rows = cursor.fetchall()
-        cursor.close()
-        conn.close()
-        return {'alunos': rows}, 200
-    def get(self):
-        time.sleep(5)  # Simula um atraso de 5 segundos
-        conn = get_connection()
-        cur = conn.cursor()
-        cur.execute("""
-            CREATE TABLE IF NOT EXISTS alunos (
-                id SERIAL PRIMARY KEY,
-                nome VARCHAR(50)
-            );
-        """)
+oper_model = ns.model('OperModel', {
+    'num1': fields.Float(required=True, description='Primeiro número'),
+    'num2': fields.Float(required=True, description='Segundo número'),
+})
 
-        conn.commit()
-        cur.execute("INSERT INTO alunos (nome) VALUES ('João'), ('Maria'), ('José');")
-        conn.commit()
+@ns.route('/soma')
+class Soma(Resource):
+    @ns.expect(oper_model)
+    @ns.response(200, 'Sucesso')
+    def post(self):
+        """
+        Recebe num1 e num2 e retorna a soma
+        """
+        data = request.get_json()
+        resultado = data['num1'] + data['num2']
+        return {'resultado': resultado}, 200
 
-        cur.execute("SELECT * FROM alunos;")
-        alunos = cur.fetchall()
-        cur.close()
-        conn.close()
-        return {"alunos": [{"id": aluno[0], "nome": aluno[1]} for aluno in alunos]}
+@ns.route('/multiplicacao')
+class Multiplicacao(Resource):
+    @ns.expect(oper_model)
+    @ns.response(200, 'Sucesso')
+    def post(self):
+        """
+        Recebe num1 e num2 e retorna o produto
+        """
+        data = request.get_json()
+        resultado = data['num1'] * data['num2']
+        return {'resultado': resultado}, 200
