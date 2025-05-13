@@ -20,11 +20,6 @@ def get_connection():
         )
     return conn
 
-oper_model = ns.model('OperModel', {
-    'num1': fields.Float(required=True, description='Primeiro número'),
-    'num2': fields.Float(required=True, description='Segundo número'),
-})
-
 @ns.route('/')
 class AlunosList(Resource):
     def get(self):
